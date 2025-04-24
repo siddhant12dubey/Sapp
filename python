@@ -4,8 +4,15 @@ from sklearn.linear_model import LogisticRegression
 import pickle
 
 # Example training data
-texts = ["I love this", "I hate this", "This is amazing", "This is awful"]
-labels = [1, 0, 1, 0]
+texts = [
+    "I love this movie", "This is fantastic!", "What a great experience",
+    "Absolutely wonderful", "Highly recommended",  # POSITIVE
+
+    "I hate this", "This was terrible", "Very disappointing",
+    "Waste of time", "I will never use this again"  # NEGATIVE
+]
+labels = [1,1,1,1,1, 0,0,0,0,0]
+
 
 # Build pipeline (Vectorizer + Classifier)
 pipeline = Pipeline([
@@ -13,9 +20,7 @@ pipeline = Pipeline([
     ('clf', LogisticRegression())
 ])
 
-# Fit pipeline
 pipeline.fit(texts, labels)
 
-# Save pipeline
 with open("sentiment_model.pkl", "wb") as f:
     pickle.dump(pipeline, f)
